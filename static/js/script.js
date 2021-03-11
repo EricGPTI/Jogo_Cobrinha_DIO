@@ -9,9 +9,8 @@ snake[0] = {
 
 let direction = "right";
 
-
 function criarBG() {
-    context.fillStyle = "lightblue";
+    context.fillStyle = "white";
     context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
@@ -41,13 +40,23 @@ function drawFood() {
     context.fillRect(food.x, food.y, box, box);
 }
 
+function fimDeJogo(jogo) {
+    clearInterval(jogo);
+    alert("Fim do Jogo!");
+}
+
 
 function start() {
-    if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
-    if(snake[0].x < 0 * box && direction == "left") snake[0].x = 15;
-    if(snake[0].y > 15 * box && direction == "up") snake[0].y = 0;
-    if(snake[0].y < 0 * box && direction == "down") snake[0].y = 15;
+    if(snake[0].x > 15 * box && direction == "right") fimDeJogo(jogo);
+    if(snake[0].x < 0 * box && direction == "left") fimDeJogo(jogo);
+    if(snake[0].y > 15 * box && direction == "up") fimDeJogo(jogo);
+    if(snake[0].y < 0 * box && direction == "down") fimDeJogo(jogo);
     
+    for(i = 1; i < snake.length; i++) {
+        if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
+            fimDeJogo(jogo);
+        }
+    }
     criarBG();
     criarCobrinha();
     drawFood();
